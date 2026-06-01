@@ -1,4 +1,4 @@
-import logo from "@/assets/logo.png";
+import Logo from "@/assets/Logo.png";
 import { Facebook, Instagram, } from "lucide-react";
 
 const Footer = () => {
@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <img
-              src={logo}
+              src={Logo}
               alt="Udefined Technology Academy"
               className="w-[180px] max-w-full object-contain sm:w-[200px]"
             />
