@@ -13,7 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQqeKLtN0RSXpeVg6_7uzz3CiLW6uFos8NBlCJ82kuIay9nk991UGGJFabbQWD4oZA4w/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5k5PpTON0ccpkLeRAD7V2Ir59kNPo0Ybtp6MniPFZLsUcTikzrg-QYZllDtuBnkJLhA/exec";
 
 const camps = [
   "ค่ายเขียนโปรแกรมเบื้องต้น (12-18 มี.ค. 2568)",
