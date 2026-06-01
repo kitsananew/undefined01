@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQqeKLtN0RSXpeVg6_7uzz3CiLW6uFos8NBlCJ82kuIay9nk991UGGJFabbQWD4oZA4w/exec";
 
 const camps = [
   "ค่ายเขียนโปรแกรมเบื้องต้น (12-18 มี.ค. 2568)",
@@ -62,11 +63,48 @@ const Register = () => {
     },
   });
 
-  const onSubmit = (data: RegisterForm) => {
-    // In production this would call an API
-    setSubmitted(true);
-    toast({ title: "สมัครสำเร็จ!", description: "ทีมงานจะติดต่อกลับภายใน 2 วันทำการ" });
+  const onSubmit = async (data: RegisterForm) => {
+  const payload = {
+    studentName: data.studentName,
+    age: data.studentAge,
+    level: data.grade,
+    school: data.school,
+    camp: data.camp,
+    parentName: data.parentName,
+    phone: data.phone,
+    email: data.email,
+    healthNote: data.allergies || "",
+    note: data.note || "",
   };
+
+  try {
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    setSubmitted(true);
+
+    toast({
+      title: "สมัครสำเร็จ!",
+      description: "บันทึกข้อมูลลง Google Sheet แล้ว ทีมงานจะติดต่อกลับภายใน 2 วันทำการ",
+    });
+
+    form.reset();
+  } catch (error) {
+    console.error("Submit error:", error);
+
+    toast({
+      title: "เกิดข้อผิดพลาด",
+      description: "ไม่สามารถส่งข้อมูลได้ กรุณาลองใหม่อีกครั้ง",
+      variant: "destructive",
+    });
+  }
+};
 
   if (submitted) {
     return (
