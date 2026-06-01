@@ -93,7 +93,7 @@ await fetch(GOOGLE_SCRIPT_URL, {
 
     toast({
       title: "สมัครสำเร็จ!",
-      description: "บันทึกข้อมูลลง Google Sheet แล้ว ทีมงานจะติดต่อกลับภายใน 2 วันทำการ",
+      description: "บันทึกข้อมูลลง",
     });
 
     form.reset();
