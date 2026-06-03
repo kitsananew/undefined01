@@ -143,13 +143,7 @@ await fetch(GOOGLE_SCRIPT_URL, {
       <Navbar />
       <section className="section-padding" style={{ background: "var(--hero-gradient)" }}>
         <div className="container">
-          <button
-            onClick={() => navigate("/")}
-            className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4" /> กลับหน้าแรก
-          </button>
-
+        
           <motion.div
             initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
