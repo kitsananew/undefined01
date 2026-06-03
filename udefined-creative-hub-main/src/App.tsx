@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index.tsx";
 import Register from "./pages/Register.tsx";
+import Quotation from "./pages/Quotation";
 import NotFound from "./pages/NotFound.tsx";
 import ArticleDetail from "./components/ArticleDetail";
 import CampDetail from "./components/CampDetail.tsx";

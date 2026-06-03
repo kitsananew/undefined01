@@ -87,13 +87,12 @@ const Navbar = () => {
           {/* External Link แยกออกมาให้ชัดเจน */}
           <div className="mx-2 h-4 w-[1px] bg-slate-200" /> {/* เส้นคั่น */}
           
-          <a 
-            href="https://forms.gle/7M867BaY6kHve55J8" 
-            target="_blank" 
-            className="flex items-center gap-1 px-4 py-2 text-sm font-semibold text-slate-500 hover:text-orange-600 transition-colors"
-          >
-            ขอใบเสนอราคา <ArrowUpRight className="h-3 w-3" />
-          </a>
+          <Link
+  to="/quotation"
+  className="flex items-center gap-1 px-4 py-2 text-sm font-semibold text-slate-500 hover:text-orange-600 transition-colors"
+>
+  ขอใบเสนอราคา <ArrowUpRight className="h-3 w-3" />
+</Link>
 
           <Button
             size="sm"
