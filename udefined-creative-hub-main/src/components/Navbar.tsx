@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Menu, X, ArrowUpRight } from "lucide-react"; // เพิ่ม icon สำหรับ link นอก
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import logo from "@/assets/Logo.png";
+
+const quotationFormUrl = "https://forms.gle/7M867BaY6kHve55J8";
 
 const navLinks = [
   { label: "หน้าแรก", href: "#", id: "home" },
@@ -19,7 +21,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const sections = ["about", "camps", "gallery", "contact"];
-      const scrollPosition = window.scrollY + 120; // ปรับ offset ให้แม่นยำขึ้น
+      const scrollPosition = window.scrollY + 120;
 
       if (window.scrollY < 50) {
         setActiveSection("home");
@@ -28,9 +30,11 @@ const Navbar = () => {
 
       for (const section of sections) {
         const element = document.getElementById(section);
+
         if (element) {
           const top = element.offsetTop;
           const height = element.offsetHeight;
+
           if (scrollPosition >= top && scrollPosition < top + height) {
             setActiveSection(section);
             break;
@@ -40,43 +44,49 @@ const Navbar = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-100 bg-white/80 backdrop-blur-md">
       <div className="container mx-auto flex h-20 items-center justify-between px-6">
-        
-      {/* Logo Section */}
-<a href="#" className="group flex items-center gap-4 transition-transform hover:scale-[1.02]">
-  {/* ปรับจาก h-12 w-12 เป็น h-16 w-16 */}
-  <img 
-    src={logo} 
-    alt="UDEFiNED" 
-    className="h-16 w-16 object-contain" 
-  />
-  <div className="flex flex-col">
-    {/* ปรับขนาดตัวอักษรชื่อแบรนด์ให้ใหญ่ขึ้นเล็กน้อยเพื่อให้เข้ากับ Logo */}
-    <span className="text-2xl font-black tracking-tight text-slate-900 leading-none">
-      UDEFiNED
-    </span>
-    <span className="mt-1 text-[11px] font-bold uppercase tracking-[0.15em] text-orange-500">
-      Technology Academy
-    </span>
-  </div>
-</a>
+        {/* Logo Section */}
+        <a
+          href="#"
+          className="group flex items-center gap-4 transition-transform hover:scale-[1.02]"
+          onClick={() => setActiveSection("home")}
+        >
+          <img
+            src={logo}
+            alt="UDEFiNED"
+            className="h-16 w-16 object-contain"
+          />
+
+          <div className="flex flex-col">
+            <span className="text-2xl font-black leading-none tracking-tight text-slate-900">
+              UDEFiNED
+            </span>
+            <span className="mt-1 text-[11px] font-bold uppercase tracking-[0.15em] text-orange-500">
+              Technology Academy
+            </span>
+          </div>
+        </a>
+
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-1 lg:flex">
           {navLinks.map((l) => {
             const isActive = activeSection === l.id;
+
             return (
               <a
                 key={l.id}
                 href={l.href}
                 className={`relative rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
-                  isActive 
-                    ? "text-orange-600 bg-orange-50/50" 
-                    : "text-slate-600 hover:text-orange-500 hover:bg-slate-50"
+                  isActive
+                    ? "bg-orange-50/50 text-orange-600"
+                    : "text-slate-600 hover:bg-slate-50 hover:text-orange-500"
                 }`}
               >
                 {l.label}
@@ -84,15 +94,17 @@ const Navbar = () => {
             );
           })}
 
-          {/* External Link แยกออกมาให้ชัดเจน */}
-          <div className="mx-2 h-4 w-[1px] bg-slate-200" /> {/* เส้นคั่น */}
-          
-          <Link
-  to="/quotation"
-  className="flex items-center gap-1 px-4 py-2 text-sm font-semibold text-slate-500 hover:text-orange-600 transition-colors"
->
-  ขอใบเสนอราคา <ArrowUpRight className="h-3 w-3" />
-</Link>
+          {/* External Link: Google Form */}
+          <div className="mx-2 h-4 w-[1px] bg-slate-200" />
+
+          <a
+            href={quotationFormUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 px-4 py-2 text-sm font-semibold text-slate-500 transition-colors hover:text-orange-600"
+          >
+            ขอใบเสนอราคา <ArrowUpRight className="h-3 w-3" />
+          </a>
 
           <Button
             size="sm"
@@ -105,14 +117,16 @@ const Navbar = () => {
 
         {/* Mobile Button */}
         <button
+          type="button"
           className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-50 text-slate-600 lg:hidden"
-          onClick={() => setOpen(!open)}
+          onClick={() => setOpen((prev) => !prev)}
+          aria-label={open ? "ปิดเมนู" : "เปิดเมนู"}
         >
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
-      {/* Mobile Menu (ปรับให้ดู Minimal ขึ้น) */}
+      {/* Mobile Menu */}
       {open && (
         <div className="absolute inset-x-0 top-full border-b bg-white p-4 shadow-xl lg:hidden">
           <div className="flex flex-col gap-2">
@@ -122,15 +136,34 @@ const Navbar = () => {
                 href={l.href}
                 onClick={() => setOpen(false)}
                 className={`rounded-lg px-4 py-3 text-base font-semibold ${
-                  activeSection === l.id ? "bg-orange-50 text-orange-600" : "text-slate-600"
+                  activeSection === l.id
+                    ? "bg-orange-50 text-orange-600"
+                    : "text-slate-600"
                 }`}
               >
                 {l.label}
               </a>
             ))}
+
             <hr className="my-2 border-slate-100" />
-            <Button className="w-full rounded-xl bg-orange-500 py-6 text-base font-bold" asChild>
-              <Link to="/register" onClick={() => setOpen(false)}>ลงทะเบียนเลย</Link>
+
+            <a
+              href={quotationFormUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="flex items-center justify-center gap-2 rounded-xl border border-orange-100 bg-orange-50 px-4 py-3 text-base font-bold text-orange-600 transition-colors hover:bg-orange-100"
+            >
+              ขอใบเสนอราคา <ArrowUpRight className="h-4 w-4" />
+            </a>
+
+            <Button
+              className="w-full rounded-xl bg-orange-500 py-6 text-base font-bold"
+              asChild
+            >
+              <Link to="/register" onClick={() => setOpen(false)}>
+                ลงทะเบียนเลย
+              </Link>
             </Button>
           </div>
         </div>

@@ -252,12 +252,8 @@ const Register = () => {
             className="mx-auto max-w-2xl"
           >
             <div className="text-center">
-              <span className="inline-block rounded-full border border-primary/20 bg-accent px-4 py-1.5 text-xs font-semibold text-accent-foreground">
-                ลงทะเบียน
-              </span>
-
               <h1
-                className="mt-4 text-2xl font-bold md:text-4xl"
+                className="text-2xl font-bold md:text-4xl"
                 style={{ lineHeight: 1.2 }}
               >
                 สมัครค่ายกิจกรรม
